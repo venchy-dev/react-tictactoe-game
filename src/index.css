@@ -1,0 +1,333 @@
+/* =========================
+   ANIMATED BACKGROUND
+========================= */
+.animated-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        120deg,
+        #020617,
+        #020617,
+        #0f172a,
+        #020617
+    );
+    background-size: 300% 300%;
+    animation: gradientMove 18s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* GLOW ORBS */
+.animated-bg::before,
+.animated-bg::after {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(34,211,238,0.35), transparent 60%);
+    filter: blur(120px);
+    animation: floatOrb 16s ease-in-out infinite alternate;
+}
+
+.animated-bg::after {
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(250,204,21,0.25), transparent 60%);
+    animation-delay: 6s;
+}
+
+@keyframes floatOrb {
+    from { transform: translate(-20%, -10%); }
+    to { transform: translate(120%, 80%); }
+}
+
+/* =========================
+   RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", system-ui, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: transparent;
+    color: #e5e7eb;
+}
+
+/* =========================
+   APP LAYOUT
+========================= */
+.app {
+    position: relative; /* 🔑 WAJIB */
+    z-index: 1;
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 40px;
+}
+
+/* =========================
+   GAME PANEL
+========================= */
+.game-wrapper {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(18px);
+    border-radius: 28px;
+    padding: 32px;
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.06),
+        0 40px 80px rgba(0,0,0,0.5);
+}
+
+.game-container h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.title-1 {
+    color: #22d3ee;
+    text-shadow: 0 0 12px rgba(34,211,238,0.6);
+}
+
+.title-2 {
+    color: #facc15;
+    text-shadow: 0 0 12px rgba(250,204,21,0.6);
+}
+
+.status {
+    text-align: center;
+    margin-bottom: 26px;
+    opacity: 0.85;
+    font-weight: bold;
+}
+
+/* =========================
+   BOARD
+========================= */
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+/* =========================
+   CELL
+========================= */
+.cell {
+    aspect-ratio: 1;
+    border-radius: 22px;
+    font-size: 3rem;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(145deg, #f8fafc, #d1d5db);
+    color: #020617;
+    box-shadow:
+        inset 6px 6px 10px rgba(0,0,0,0.08),
+        inset -6px -6px 10px rgba(255,255,255,0.7),
+        0 14px 30px rgba(0,0,0,0.45);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cell:hover {
+    transform: translateY(-3px) scale(1.03);
+}
+
+/* X & O */
+.cell.x {
+    color: #22d3ee;
+    text-shadow: 0 0 12px rgba(34,211,238,0.6);
+}
+
+.cell.o {
+    color: #facc15;
+    text-shadow: 0 0 12px rgba(250,204,21,0.6);
+}
+
+/* =========================
+   RESET BUTTON
+========================= */
+.reset-btn {
+    margin: auto;
+    display: block;
+    padding: 12px 26px;
+    border-radius: 999px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* =========================
+   HISTORY PANEL UPGRADE
+========================= */
+.history-title {
+    font-size: 1.6rem;
+    margin-bottom: 24px;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+/* Scrollable list */
+.history-list {
+    max-height: 538px;
+    overflow-y: auto;
+    padding-right: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Custom scrollbar */
+.history-list::-webkit-scrollbar {
+    width: 6px;
+}
+.history-list::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px;
+}
+
+/* =========================
+   HISTORY ITEM
+========================= */
+.history-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #e5e7eb;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.history-item:hover {
+    background: rgba(255,255,255,0.08);
+    transform: translateX(6px);
+}
+
+/* ACTIVE MOVE */
+.history-item.active {
+    background: linear-gradient(
+        135deg,
+        rgba(34,211,238,0.25),
+        rgba(250,204,21,0.25)
+    );
+    border-color: rgba(255,255,255,0.25);
+    box-shadow: 0 0 25px rgba(34,211,238,0.35);
+}
+
+/* =========================
+   PLAYER ICON
+========================= */
+.history-player {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.history-player.x {
+    background: rgba(34,211,238,0.25);
+    color: #22d3ee;
+    box-shadow: 0 0 14px rgba(34,211,238,0.6);
+}
+
+.history-player.o {
+    background: rgba(250,204,21,0.25);
+    color: #facc15;
+    box-shadow: 0 0 14px rgba(250,204,21,0.6);
+}
+
+/* =========================
+   TEXT
+========================= */
+.history-text {
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+    .app {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================
+   WINNING CELL – LEVEL 2
+========================= */
+
+.cell.win {
+    animation: winCelebrate 0.9s ease-in-out forwards;
+}
+
+/* Glow by player */
+.cell.win.x {
+    color: #22d3ee;
+    box-shadow:
+        0 0 25px rgba(34,211,238,0.75),
+        0 0 55px rgba(34,211,238,0.45);
+}
+
+.cell.win.o {
+    color: #facc15;
+    box-shadow:
+        0 0 25px rgba(250,204,21,0.75),
+        0 0 55px rgba(250,204,21,0.45);
+}
+
+/* Animate once */
+@keyframes winCelebrate {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    35% {
+        transform: scale(1.18);
+        filter: brightness(1.25);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+}
+
+/* Dim non-winning cells */
+.board.has-winner .cell:not(.win) {
+    opacity: 0.4;
+}
+
+/* Highlight last move */
+.cell.last {
+    outline: 3px solid rgba(255,255,255,0.8);
+    outline-offset: -6px;
+    box-shadow: 0 0 18px rgba(255,255,255,0.6);
+}
+
+/* Disable board when finished */
+.board.disabled {
+    pointer-events: none;
+    opacity: 0.85;
+}
