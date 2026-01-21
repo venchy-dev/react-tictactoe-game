@@ -1,4 +1,5 @@
 import { useState, memo, useRef, useEffect } from "react";
+import Footer from "./components/Footer";
 
 /* =========================
    Square Component
@@ -210,7 +211,9 @@ export default function App() {
                         })}
                     </div>
                 </div>
+
             </div>
+            <Footer />
         </>
     );
 }

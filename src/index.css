@@ -120,7 +120,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 18px;
-    margin-bottom: 28px;
+    margin-bottom: 13px;
 }
 
 /* =========================
@@ -330,4 +330,28 @@ body {
 .board.disabled {
     pointer-events: none;
     opacity: 0.85;
+}
+
+.footer {
+    margin-top: 0px;
+    padding: 16px 0;
+    text-align: center;
+
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer span {
+    color: #38bdf8; /* samakan dengan warna X */
+    font-weight: 500;
+}
+
+.footer a {
+    color: #facc15;
+    text-shadow: 0 0 12px rgba(250,204,21,0.6);
 }
